@@ -1,82 +1,88 @@
-import React, { Component, Children, cloneElement } from 'react';
-import PropTypes from 'prop-types';
-import styles from './tree-node-renderer.scss';
+import React, { Children, cloneElement } from 'react'
+import PropTypes from 'prop-types'
 
-class FileThemeTreeNodeRenderer extends Component {
-  render() {
-    const {
-      children,
-      listIndex,
-      swapFrom,
-      swapLength,
-      swapDepth,
-      scaffoldBlockPxWidth,
-      lowerSiblingCounts,
-      connectDropTarget,
-      isOver,
-      draggedNode,
-      canDrop,
-      treeIndex,
-      treeId, // Delete from otherProps
-      getPrevRow, // Delete from otherProps
-      node, // Delete from otherProps
-      path, // Delete from otherProps
-      rowDirection,
-      ...otherProps
-    } = this.props;
+import makeStyles from '@material-ui/styles/makeStyles'
 
-    return connectDropTarget(
-      <div {...otherProps} className={styles.node}>
-        {Children.map(children, child =>
-          cloneElement(child, {
-            isOver,
-            canDrop,
-            draggedNode,
-            lowerSiblingCounts,
-            listIndex,
-            swapFrom,
-            swapLength,
-            swapDepth,
-          })
-        )}
-      </div>
-    );
-  }
+import stylesNode from './tree-node-renderer-style'
+
+const useStyles = makeStyles(stylesNode)
+
+function FileThemeTreeNodeRenderer(props) {
+  const {
+    children,
+    listIndex,
+    swapFrom,
+    swapLength,
+    swapDepth,
+    // scaffoldBlockPxWidth,
+    lowerSiblingCounts,
+    connectDropTarget,
+    isOver,
+    draggedNode,
+    canDrop
+    // treeIndex,
+    // treeId, // Delete from otherProps
+    // getPrevRow, // Delete from otherProps
+    // node, // Delete from otherProps
+    // path, // Delete from otherProps
+    // rowDirection,
+    // ...otherProps
+  } = props
+
+  const styles = useStyles()
+
+  // {...otherProps}
+  return connectDropTarget(
+    <div  className={styles.node}>
+      {Children.map(children, child =>
+        cloneElement(child, {
+          canDrop,
+          draggedNode,
+          isOver,
+          listIndex,
+          lowerSiblingCounts,
+          swapDepth,
+          swapFrom,
+          swapLength
+        })
+      )}
+    </div>
+  )
 }
 
 FileThemeTreeNodeRenderer.defaultProps = {
-  swapFrom: null,
-  swapDepth: null,
-  swapLength: null,
-  canDrop: false,
+  canDrop    : false,
   draggedNode: null,
-};
+  swapDepth  : null,
+  swapFrom   : null,
+  swapLength : null
+}
 
 FileThemeTreeNodeRenderer.propTypes = {
-  treeIndex: PropTypes.number.isRequired,
-  treeId: PropTypes.string.isRequired,
-  swapFrom: PropTypes.number,
-  swapDepth: PropTypes.number,
-  swapLength: PropTypes.number,
-  scaffoldBlockPxWidth: PropTypes.number.isRequired,
-  lowerSiblingCounts: PropTypes.arrayOf(PropTypes.number).isRequired,
+  canDrop          : PropTypes.bool,
+  children         : PropTypes.node.isRequired,
+  connectDropTarget: PropTypes.func.isRequired,
+  draggedNode      : PropTypes.shape({}),
+  getPrevRow       : PropTypes.func.isRequired,
+  isOver           : PropTypes.bool.isRequired,
+  listIndex        : PropTypes.number.isRequired,
 
-  listIndex: PropTypes.number.isRequired,
-  children: PropTypes.node.isRequired,
+  lowerSiblingCounts: PropTypes.arrayOf(PropTypes.number).isRequired,
+  node              : PropTypes.shape({}).isRequired,
 
   // Drop target
-  connectDropTarget: PropTypes.func.isRequired,
-  isOver: PropTypes.bool.isRequired,
-  canDrop: PropTypes.bool,
-  draggedNode: PropTypes.shape({}),
+  path: PropTypes.arrayOf(
+    PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])
+  ).isRequired,
+  rowDirection        : PropTypes.string.isRequired,
+  scaffoldBlockPxWidth: PropTypes.number.isRequired,
+  swapDepth           : PropTypes.number,
 
   // used in dndManager
-  getPrevRow: PropTypes.func.isRequired,
-  node: PropTypes.shape({}).isRequired,
-  path: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ).isRequired,
-  rowDirection: PropTypes.string.isRequired,
-};
+  swapFrom  : PropTypes.number,
+  swapLength: PropTypes.number,
+  treeId    : PropTypes.string.isRequired,
+  treeIndex : PropTypes.number.isRequired
+}
 
-export default FileThemeTreeNodeRenderer;
+export default FileThemeTreeNodeRenderer

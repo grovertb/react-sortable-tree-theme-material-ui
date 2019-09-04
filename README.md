@@ -1,4 +1,4 @@
-# React Sortable Tree File Explorer Theme
+# React Sortable Tree Material-UI Theme
 
 ![theme appearance](https://user-images.githubusercontent.com/4413963/32144463-a7de23e0-bcfc-11e7-8054-1a83d561261e.png)
 
@@ -10,13 +10,13 @@
 ## Usage
 
 ```sh
-npm install --save react-sortable-tree-theme-file-explorer
+npm install --save react-sortable-tree-theme-material-ui
 ```
 
 ```jsx
 import React, { Component } from 'react';
 import SortableTree from 'react-sortable-tree';
-import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
+import MaterialUITheme from 'react-sortable-tree-theme-material-ui';
 
 export default class Tree extends Component {
   constructor(props) {
@@ -33,7 +33,7 @@ export default class Tree extends Component {
         <SortableTree
           treeData={this.state.treeData}
           onChange={treeData => this.setState({ treeData })}
-          theme={FileExplorerTheme}
+          theme={MaterialUITheme}
         />
       </div>
     );
