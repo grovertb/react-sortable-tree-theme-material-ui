@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import SortableTree, { toggleExpandedForAll } from 'react-sortable-tree'
-import FileExplorerTheme from '../index'
+import MaterialUITheme from '../index'
 import './app.css'
 
 class App extends Component {
@@ -50,12 +50,12 @@ class App extends Component {
       ]
     }
 
-    this.updateTreeData = this.updateTreeData.bind(this)
-    this.expandAll = this.expandAll.bind(this)
-    this.collapseAll = this.collapseAll.bind(this)
+    this._handleUpdateTreeData = this._handleUpdateTreeData.bind(this)
+    this._handleExpandAll = this._handleExpandAll.bind(this)
+    this._handleCollapseAll = this._handleCollapseAll.bind(this)
   }
 
-  updateTreeData(treeData) {
+  _handleUpdateTreeData(treeData) {
     this.setState({ treeData })
   }
 
@@ -68,11 +68,11 @@ class App extends Component {
     })
   }
 
-  expandAll() {
+  _handleExpandAll() {
     this.expand(true)
   }
 
-  collapseAll() {
+  _handleCollapseAll() {
     this.expand(false)
   }
 
@@ -118,8 +118,8 @@ class App extends Component {
         style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         <div style={{ flex: '0 0 auto', padding: '0 15px' }}>
           <h3>File Explorer Theme</h3>
-          <button onClick={this.expandAll}>Expand All</button>
-          <button onClick={this.collapseAll}>Collapse All</button>
+          <button onClick={this._handleExpandAll}>Expand All</button>
+          <button onClick={this._handleCollapseAll}>Collapse All</button>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <form
             onSubmit={event => {
@@ -167,15 +167,16 @@ class App extends Component {
             generateNodeProps={rowInfo => ({
               buttons: [
                 <button
+                  key={rowInfo.node._id}
                   onClick={() => alertNodeInfo(rowInfo)}
                   style={{
                     backgroundColor: 'gray',
-                    borderRadius   : '100%',
                     border         : 0,
+                    borderRadius   : '100%',
                     color          : 'white',
                     fontWeight     : 100,
-                    padding: 0,
                     height         : 16,
+                    padding        : 0,
                     width          : 16
                   }}>
                   i
@@ -184,9 +185,10 @@ class App extends Component {
               icons: rowInfo.node.isDirectory ?
                 [
                   <div
+                    key={rowInfo.node._id}
                     style={{
                       borderBottom: 'solid 10px gray',
-                      borderColor: rowInfo.node.expanded ? 'white' : 'gray',
+                      borderColor : rowInfo.node.expanded ? 'white' : 'gray',
                       borderLeft  : 'solid 8px gray',
                       boxSizing   : 'border-box',
                       filter      : rowInfo.node.expanded ?
@@ -199,6 +201,7 @@ class App extends Component {
                 ] :
                 [
                   <div
+                    key={rowInfo.node._id}
                     style={{
                       border     : 'solid 1px black',
                       fontSize   : 8,
@@ -211,7 +214,7 @@ class App extends Component {
                   </div>
                 ]
             })}
-            onChange={this.updateTreeData}
+            onChange={this._handleUpdateTreeData}
             searchFinishCallback={matches =>
               this.setState({
                 searchFocusIndex:
@@ -221,7 +224,7 @@ class App extends Component {
             }
             searchFocusOffset={searchFocusIndex}
             searchQuery={searchString}
-            theme={FileExplorerTheme}
+            theme={MaterialUITheme}
             treeData={treeData} />
         </div>
       </div>
