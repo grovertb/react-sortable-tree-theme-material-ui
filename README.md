@@ -16,24 +16,45 @@ npm install --save react-sortable-tree-theme-material-ui
 ```jsx
 import React, { Component } from 'react';
 import SortableTree from 'react-sortable-tree';
-import MaterialUITheme from 'react-sortable-tree-theme-material-ui';
+import MaterialTheme from 'react-sortable-tree-theme-material-ui';
 
 export default class Tree extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      treeData: [{ title: 'src/', children: [{ title: 'index.js' }] }],
+      treeData: [ { children: [ { title: 'Box' } ], expanded: true, title: 'Layout' } ]
     };
   }
 
   render() {
     return (
-      <div style={{ height: 400 }}>
+      <div style={{ height: 400, overflowX: 'hidden', overflowY: 'auto' }}>
         <SortableTree
+          generateNodeProps={
+            rowInfo => ({
+              buttons: (
+                <i className='material-icons' style={{ fontSize: 18 }}>
+                  more_vert
+                </i>
+              ),
+              icons: (
+                <i className='material-icons' style={{ fontSize: 18 }}>
+                  drag_indicator
+                </i>
+              ),
+              title: (
+                <Fragment>
+                  <i className='material-icons' style={{ color: '#1890FF', fontSize: 18, marginRight: 6 }}>link</i>
+                  <span>{rowInfo.node.title}</span>
+                </Fragment>
+              )
+            })
+          }
+          isVirtualized={false}
           treeData={this.state.treeData}
           onChange={treeData => this.setState({ treeData })}
-          theme={MaterialUITheme}
+          theme={MaterialTheme}
         />
       </div>
     );
