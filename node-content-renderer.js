@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import makeStyles from '@material-ui/styles/makeStyles'
@@ -137,21 +137,16 @@ function FileThemeNodeContentRenderer(props) {
               }
               style={{
                 opacity: isDraggedDescendant ? 0.5 : 1,
-                // paddingLeft: scaffoldBlockPxWidth,
                 ...style
               }}>
               <div className={styles.rowContents + (!canDrag ? ` ${styles.rowContentsDragDisabled}` : '')}>
                 <div className={styles.rowIcon}>
-                  {icons.map((icon, index) => (
-                    <Fragment key={index} >
-                      {icon}
-                    </Fragment>
-                  ))}
+                  {icons}
                 </div>
                 <div className={styles.rowLabel}>
                   {
                     typeof nodeTitle === 'string' ?
-                      <span className={styles.rowTitle}>{nodeTitle}</span> :
+                      <span className={styles.rowTitle}>{nodeTitle}</span>  :
                       typeof nodeTitle === 'function' ?
                         nodeTitle({
                           node,
@@ -162,13 +157,7 @@ function FileThemeNodeContentRenderer(props) {
                   }
                 </div>
                 <div className={styles.rowToolbar}>
-                  {
-                    buttons.map((btn, index) => (
-                      <Fragment key={index} >
-                        {btn}
-                      </Fragment>
-                    ))
-                  }
+                  {buttons}
                 </div>
               </div>
             </div>
@@ -184,12 +173,12 @@ function FileThemeNodeContentRenderer(props) {
 }
 
 FileThemeNodeContentRenderer.defaultProps = {
-  buttons                 : [],
+  buttons                 : null,
   canDrag                 : false,
   canDrop                 : false,
   className               : '',
   draggedNode             : null,
-  icons                   : [],
+  icons                   : null,
   isSearchFocus           : false,
   isSearchMatch           : false,
   parentNode              : null,
@@ -202,7 +191,7 @@ FileThemeNodeContentRenderer.defaultProps = {
 }
 
 FileThemeNodeContentRenderer.propTypes = {
-  buttons           : PropTypes.arrayOf(PropTypes.node),
+  buttons           : PropTypes.node,
   canDrag           : PropTypes.bool,
   canDrop           : PropTypes.bool,
   className         : PropTypes.string,
@@ -210,7 +199,7 @@ FileThemeNodeContentRenderer.propTypes = {
   connectDragSource : PropTypes.func.isRequired,
   didDrop           : PropTypes.bool.isRequired,
   draggedNode       : PropTypes.shape({}),
-  icons             : PropTypes.arrayOf(PropTypes.node),
+  icons             : PropTypes.node,
   isDragging        : PropTypes.bool.isRequired,
   isOver            : PropTypes.bool.isRequired,
   isSearchFocus     : PropTypes.bool,

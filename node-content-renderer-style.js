@@ -155,7 +155,8 @@ export default () => ({
       position       : 'relative'
     },
     '& $rowLabel': {
-      flex: 1
+      flex   : 1,
+      padding: '0px 6px'
       // flex        : '0 1 auto',
       // paddingRight: 20
     }
