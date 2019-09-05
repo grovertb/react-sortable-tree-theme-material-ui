@@ -151,7 +151,7 @@ function FileThemeNodeContentRenderer(props) {
                 <div className={styles.rowLabel}>
                   {
                     typeof nodeTitle === 'string' ?
-                      <span className={styles.rowTitle}>nodeTitle</span>  :
+                      <span className={styles.rowTitle}>{nodeTitle}</span> :
                       typeof nodeTitle === 'function' ?
                         nodeTitle({
                           node,
