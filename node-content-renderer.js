@@ -20,7 +20,7 @@ function FileThemeNodeContentRenderer(props) {
   const {
     scaffoldBlockPxWidth,
     // toggleChildrenVisibility,
-    connectDragPreview,
+    // connectDragPreview,
     connectDragSource,
     isDragging,
     canDrop,
@@ -125,7 +125,8 @@ function FileThemeNodeContentRenderer(props) {
       <div className={styles.rowWrapper + (!canDrag ? ` ${styles.rowWrapperDragDisabled}` : '')}>
         {scaffold}
         {
-          connectDragPreview(
+          // connectDragPreview
+          connectDragSource(
             <div
               className={
                 styles.row +
@@ -167,9 +168,11 @@ function FileThemeNodeContentRenderer(props) {
     </div>
   )
 
-  return canDrag ?
-    connectDragSource(nodeContent, { dropEffect: 'copy' }) :
-    nodeContent
+  // return canDrag ?
+  //   connectDragSource(nodeContent, { dropEffect: 'copy' }) :
+  //   nodeContent
+
+  return nodeContent
 }
 
 FileThemeNodeContentRenderer.defaultProps = {
