@@ -1,6 +1,6 @@
 # React Sortable Tree Material-UI Theme
 
-![theme appearance](https://user-images.githubusercontent.com/4413963/32144463-a7de23e0-bcfc-11e7-8054-1a83d561261e.png)
+![theme appearance](https://raw.githubusercontent.com/grovertb/react-sortable-tree-theme-material-ui/master/preview.png)
 
 ## Features
 
