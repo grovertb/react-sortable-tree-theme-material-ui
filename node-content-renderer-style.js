@@ -23,74 +23,74 @@ export default () => ({
   },
   collapseButton: {},
   expandButton  : {
-    '&::after': {
-      transform: 'translate3d(-50%, -20%, 0) rotateZ(-90deg)'
-    }
+    // '&::after': {
+    //   transform: 'translate3d(-50%, -20%, 0) rotateZ(-90deg)'
+    // }
   },
   highlightBottomLeftCorner: {
-    '&::after': {
-      borderBottom: '7px solid transparent',
-      borderLeft  : '7px solid #36c2f6',
-      borderTop   : '7px solid transparent',
-      content     : '""',
-      height      : 0,
-      marginTop   : -7,
-      position    : 'absolute',
-      right       : 0,
-      top         : '100%'
-    },
-    '&::before': {
-      borderBottom: 'solid 6px #36c2f6',
-      borderLeft  : 'solid 6px #36c2f6',
-      boxSizing   : 'border-box',
-      content     : '""',
-      height      : 'calc(100% + 3px)',
-      position    : 'absolute',
-      right       : 7,
-      top         : 0,
-      width       : 'calc(50% - 4px)'
-    },
+    // '&::after': {
+    //   borderBottom: '7px solid transparent',
+    //   borderLeft  : '7px solid #36c2f6',
+    //   borderTop   : '7px solid transparent',
+    //   content     : '""',
+    //   height      : 0,
+    //   marginTop   : -7,
+    //   position    : 'absolute',
+    //   right       : 0,
+    //   top         : '100%'
+    // },
+    // '&::before': {
+    //   borderBottom: 'solid 6px #36c2f6',
+    //   borderLeft  : 'solid 6px #36c2f6',
+    //   boxSizing   : 'border-box',
+    //   content     : '""',
+    //   height      : 'calc(100% + 3px)',
+    //   position    : 'absolute',
+    //   right       : 7,
+    //   top         : 0,
+    //   width       : 'calc(50% - 4px)'
+    // },
     zIndex: 3
   },
   highlightLineVertical: {
-    '&::after': {
-      animation  : '$arrow-pulse 1s infinite linear both',
-      borderLeft : '3px solid transparent',
-      borderRight: '3px solid transparent',
-      borderTop  : '3px solid white',
-      content    : '""',
-      height     : 0,
-      left       : '50%',
-      marginLeft : -3,
-      position   : 'absolute',
-      top        : 0
-    },
-    '&::before': {
-      backgroundColor: '#36c2f6',
-      content        : '""',
-      height         : '100%',
-      left           : '50%',
-      marginLeft     : -3,
-      position       : 'absolute',
-      top            : 0,
-      width          : 6
-    },
+    // '&::after': {
+    //   animation  : '$arrow-pulse 1s infinite linear both',
+    //   borderLeft : '3px solid transparent',
+    //   borderRight: '3px solid transparent',
+    //   borderTop  : '3px solid white',
+    //   content    : '""',
+    //   height     : 0,
+    //   left       : '50%',
+    //   marginLeft : -3,
+    //   position   : 'absolute',
+    //   top        : 0
+    // },
+    // '&::before': {
+    //   backgroundColor: '#36c2f6',
+    //   content        : '""',
+    //   height         : '100%',
+    //   left           : '50%',
+    //   marginLeft     : -3,
+    //   position       : 'absolute',
+    //   top            : 0,
+    //   width          : 6
+    // },
     zIndex: 3
   },
   highlightTopLeftCorner: {
-    '&::before': {
-      borderLeft: 'solid 6px #36c2f6',
-      borderTop : 'solid 6px #36c2f6',
-      boxSizing : 'border-box',
-      content   : '""',
-      height    : 'calc(50% + 3px)',
-      marginTop : -3,
-      position  : 'absolute',
-      right     : 0,
-      top       : '50%',
-      width     : 'calc(50% + 3px)',
-      zIndex    : 3
-    }
+    // '&::before': {
+    //   borderLeft: 'solid 6px #36c2f6',
+    //   borderTop : 'solid 6px #36c2f6',
+    //   boxSizing : 'border-box',
+    //   content   : '""',
+    //   height    : 'calc(50% + 3px)',
+    //   marginTop : -3,
+    //   position  : 'absolute',
+    //   right     : 0,
+    //   top       : '50%',
+    //   width     : 'calc(50% + 3px)',
+    //   zIndex    : 3
+    // }
   },
   lineBlock: {
     display : 'inline-block',
@@ -102,7 +102,7 @@ export default () => ({
     display: 'inline-block',
     height : '100%'
   },
-  rootRow: {
+  nodeContent: {
     '& $collapseButton, & $expandButton': {
       '&::after': {
         border          : 'solid transparent 10px',
@@ -141,16 +141,50 @@ export default () => ({
       height  : '100%',
       position: 'relative'
     },
-    '& $rowContents, & $rowLabel, & $rowToolbar, & $toolbarButton': {
-      display      : 'inline-block',
-      verticalAlign: 'middle'
+    '& $rowContents': {
+      alignItems     : 'center',
+      backgroundColor: 'white',
+      border         : '1px solid #D9D9D9',
+      borderRadius   : '3px',
+      color          : '#595959',
+      display        : 'flex',
+      // flex           : '1 0 auto',
+      height         : '100%',
+      justifyContent : 'space-between',
+      padding        : 10,
+      position       : 'relative'
     },
-    '& $rowLandingPad, & $rowCancelPad': {
+    '& $rowLabel': {
+      flex: 1
+      // flex        : '0 1 auto',
+      // paddingRight: 20
+    }
+  },
+  row: {
+    // '& > *': {
+    //   boxSizing: 'border-box'
+    // },
+    '& $rowIcon, & $rowLabel,& $rowToolbar': {
+      alignItems: 'center',
+      display   : 'flex'
+    },
+    '&$rowCancelPad': {
+      '&::before': {
+        backgroundColor: '#ffd2d6', // '#e6a8ad'
+        border         : '2px dotted #e6a8ad'
+      }
+    },
+    '&$rowLandingPad': {
+      '&::before': {
+        backgroundColor: '#dddddd', // color de fondo cuando es posible draggear
+        border         : '2px dotted #b5b5b5'
+      }
+    },
+    '&$rowLandingPad, &$rowCancelPad': {
       '& *': {
-        opacity: '0 !important'
+        opacity: '.6 !important'
       },
       '&::before': {
-        border  : '2px dotted black',
         bottom  : 0,
         content : '""',
         left    : 0,
@@ -159,42 +193,26 @@ export default () => ({
         top     : 0,
         zIndex  : -1
       },
-      border   : 'none',
-      boxShadow: 'none',
-      outline  : 'none'
-    }
-  },
-  row: {
-    '& > *': {
-      boxSizing: 'border-box'
+      backgroundColor: 'transparent',
+      border         : 'none',
+      boxShadow      : 'none',
+      outline        : 'none'
     },
-    display   : 'flex',
-    height    : '100%',
-    position  : 'relative',
-    whiteSpace: 'nowrap'
+    // alignItems: 'center',
+    // display   : 'flex',
+    flex    : 1,
+    height  : '100%',
+    // transition  : 'all 1s ease-in-out',
+    position: 'relative'
+    // whiteSpace: 'nowrap'
   },
-  rowCancelPad: {
-    '&::before': {
-      backgroundColor: '#e6a8ad'
-    }
+  rowCancelPad: {},
+  rowContents : {},
+  rowIcon     : {
+    color: '#D9D9D9'
   },
-  rowContents: {
-    alignItems    : 'center',
-    display       : 'flex',
-    flex          : '1 0 auto',
-    height        : '100%',
-    justifyContent: 'space-between',
-    position      : 'relative'
-  },
-  rowLabel: {
-    flex        : '0 1 auto',
-    paddingRight: 20
-  },
-  rowLandingPad: {
-    '&::before': {
-      backgroundColor: 'lightblue'
-    }
-  },
+  rowLabel      : {},
+  rowLandingPad : {},
   rowSearchFocus: {
     boxShadow: 'inset 0 -7px 7px -3px #fc6421'
   },
@@ -202,8 +220,8 @@ export default () => ({
     boxShadow: 'inset 0 -7px 7px -3px #0080ff'
   },
   rowToolbar: {
-    display: 'flex',
-    flex   : '0 1 auto'
+    // display: 'flex',
+    // flex   : '0 1 auto'
   },
   rowWrapper: {
     '&:active': {
@@ -213,11 +231,12 @@ export default () => ({
       opacity: 0.7
     },
     boxSizing: 'border-box',
-    cursor   : 'move',
-    height   : '100%'
+    cursor   : 'grab',
+    display  : 'flex',
+    height   : '100%',
+    margin   : '2px 2px 2px 0'
   },
   rowWrapperDragDisabled: {
     cursor: 'default'
-  },
-  toolbarButton: {}
+  }
 })

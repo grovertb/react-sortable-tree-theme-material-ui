@@ -33,19 +33,21 @@ function FileThemeTreeNodeRenderer(props) {
 
   // {...otherProps}
   return connectDropTarget(
-    <div  className={styles.node}>
-      {Children.map(children, child =>
-        cloneElement(child, {
-          canDrop,
-          draggedNode,
-          isOver,
-          listIndex,
-          lowerSiblingCounts,
-          swapDepth,
-          swapFrom,
-          swapLength
-        })
-      )}
+    <div className={styles.node}>
+      {
+        Children.map(children, child =>
+          cloneElement(child, {
+            canDrop,
+            draggedNode,
+            isOver,
+            listIndex,
+            lowerSiblingCounts,
+            swapDepth,
+            swapFrom,
+            swapLength
+          })
+        )
+      }
     </div>
   )
 }

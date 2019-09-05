@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import makeStyles from '@material-ui/styles/makeStyles'
-import stylesNode from './node-content-renderer-style'
+import stylesNode from './node-content-renderer-style.js'
 
 const useStyles = makeStyles(stylesNode)
 
@@ -16,11 +16,10 @@ function isDescendant(older, younger) {
   )
 }
 
-// eslint-disable-next-line react/prefer-stateless-function
 function FileThemeNodeContentRenderer(props) {
   const {
     scaffoldBlockPxWidth,
-    toggleChildrenVisibility,
+    // toggleChildrenVisibility,
     connectDragPreview,
     connectDragSource,
     isDragging,
@@ -58,7 +57,9 @@ function FileThemeNodeContentRenderer(props) {
 
   // Construct the scaffold representing the structure of the tree
   const scaffold = []
+
   lowerSiblingCounts.forEach((lowerSiblingCount, i) => {
+    // if(i > 0) {
     scaffold.push(
       <div
         className={styles.lineBlock}
@@ -92,93 +93,87 @@ function FileThemeNodeContentRenderer(props) {
           }} />
       )
     }
+    // }
   })
-  const nodeContent = (
-    <div className={styles.rootRow}>
-      {toggleChildrenVisibility &&
-          node.children &&
-          node.children.length > 0 && (
-        <button
-          aria-label={node.expanded ? 'Collapse' : 'Expand'}
-          className={
-            node.expanded ? styles.collapseButton : styles.expandButton
-          }
-          onClick={() =>
-            toggleChildrenVisibility({
-              node,
-              path,
-              treeIndex
-            })
-          }
-          style={{
-            left: (lowerSiblingCounts.length - 0.7) * scaffoldBlockPxWidth
-          }}
-          type='button' />
-      )}
 
-      <div
-        className={
-          styles.rowWrapper +
-            (!canDrag ? ` ${styles.rowWrapperDragDisabled}` : '')
-        }>
-        {/* Set the row preview to be used during drag and drop */}
-        {connectDragPreview(
-          <div style={{ display: 'flex' }}>
-            {scaffold}
+  const nodeContent = (
+    <div className={styles.nodeContent}>
+      {/* {
+        toggleChildrenVisibility &&
+        node.children &&
+        node.children.length > 0 && (
+          <button
+            type="button"
+            aria-label={node.expanded ? 'Collapse' : 'Expand'}
+            className={
+              node.expanded ? styles.collapseButton : styles.expandButton
+            }
+            style={{
+              left: (lowerSiblingCounts.length - 0.7) * scaffoldBlockPxWidth,
+            }}
+            onClick={() =>
+              toggleChildrenVisibility({
+                node,
+                path,
+                treeIndex,
+              })
+            }
+          />
+        )
+      } */}
+
+      <div className={styles.rowWrapper + (!canDrag ? ` ${styles.rowWrapperDragDisabled}` : '')}>
+        {scaffold}
+        {
+          connectDragPreview(
             <div
               className={
                 styles.row +
-                  (isLandingPadActive ? ` ${styles.rowLandingPad}` : '') +
-                  (isLandingPadActive && !canDrop ?
-                    ` ${styles.rowCancelPad}` :
-                    '') +
-                  (isSearchMatch ? ` ${styles.rowSearchMatch}` : '') +
-                  (isSearchFocus ? ` ${styles.rowSearchFocus}` : '') +
-                  (className ? ` ${className}` : '')
+                (isLandingPadActive ? ` ${styles.rowLandingPad}` : '') +
+                (isLandingPadActive && !canDrop ? ` ${styles.rowCancelPad}` : '') +
+                (isSearchMatch ? ` ${styles.rowSearchMatch}` : '') +
+                (isSearchFocus ? ` ${styles.rowSearchFocus}` : '') +
+                (className ? ` ${className}` : '')
               }
               style={{
                 opacity: isDraggedDescendant ? 0.5 : 1,
+                // paddingLeft: scaffoldBlockPxWidth,
                 ...style
               }}>
-              <div
-                className={
-                  styles.rowContents +
-                    (!canDrag ? ` ${styles.rowContentsDragDisabled}` : '')
-                }>
-                <div className={styles.rowToolbar}>
+              <div className={styles.rowContents + (!canDrag ? ` ${styles.rowContentsDragDisabled}` : '')}>
+                <div className={styles.rowIcon}>
                   {icons.map((icon, index) => (
-                    <div
-                      className={styles.toolbarButton} // eslint-disable-line react/no-array-index-key
-                      key={index}>
+                    <Fragment key={index} >
                       {icon}
-                    </div>
+                    </Fragment>
                   ))}
                 </div>
                 <div className={styles.rowLabel}>
-                  <span className={styles.rowTitle}>
-                    {typeof nodeTitle === 'function' ?
-                      nodeTitle({
-                        node,
-                        path,
-                        treeIndex
-                      }) :
-                      nodeTitle}
-                  </span>
+                  {
+                    typeof nodeTitle === 'string' ?
+                      <span className={styles.rowTitle}>nodeTitle</span>  :
+                      typeof nodeTitle === 'function' ?
+                        nodeTitle({
+                          node,
+                          path,
+                          treeIndex
+                        }) :
+                        nodeTitle
+                  }
                 </div>
-
                 <div className={styles.rowToolbar}>
-                  {buttons.map((btn, index) => (
-                    <div
-                      className={styles.toolbarButton} // eslint-disable-line react/no-array-index-key
-                      key={index}>
-                      {btn}
-                    </div>
-                  ))}
+                  {
+                    buttons.map((btn, index) => (
+                      <Fragment key={index} >
+                        {btn}
+                      </Fragment>
+                    ))
+                  }
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )
+        }
       </div>
     </div>
   )
