@@ -59,41 +59,41 @@ function FileThemeNodeContentRenderer(props) {
   const scaffold = []
 
   lowerSiblingCounts.forEach((lowerSiblingCount, i) => {
-    // if(i > 0) {
-    scaffold.push(
-      <div
-        className={styles.lineBlock}
-        key={`pre_${1 + i}`}
-        style={{ width: scaffoldBlockPxWidth }} />
-    )
-
-    if(treeIndex !== listIndex && i === swapDepth) {
-      // This row has been shifted, and is at the depth of
-      // the line pointing to the new destination
-      let highlightLineClass = ''
-
-      if(listIndex === swapFrom + swapLength - 1)
-      // This block is on the bottom (target) line
-      // This block points at the target block (where the row will go when released)
-        highlightLineClass = styles.highlightBottomLeftCorner
-      else if(treeIndex === swapFrom)
-      // This block is on the top (source) line
-        highlightLineClass = styles.highlightTopLeftCorner
-      else
-      // This block is between the bottom and top
-        highlightLineClass = styles.highlightLineVertical
-
+    if(i > 0) {
       scaffold.push(
         <div
-          className={`${styles.absoluteLineBlock} ${highlightLineClass}`}
-          key={`highlight_${1 + i}`}
-          style={{
-            left : scaffoldBlockPxWidth * i,
-            width: scaffoldBlockPxWidth
-          }} />
+          className={styles.lineBlock}
+          key={`pre_${1 + i}`}
+          style={{ width: scaffoldBlockPxWidth }} />
       )
+
+      if(treeIndex !== listIndex && i === swapDepth) {
+      // This row has been shifted, and is at the depth of
+      // the line pointing to the new destination
+        let highlightLineClass = ''
+
+        if(listIndex === swapFrom + swapLength - 1)
+        // This block is on the bottom (target) line
+        // This block points at the target block (where the row will go when released)
+          highlightLineClass = styles.highlightBottomLeftCorner
+        else if(treeIndex === swapFrom)
+        // This block is on the top (source) line
+          highlightLineClass = styles.highlightTopLeftCorner
+        else
+        // This block is between the bottom and top
+          highlightLineClass = styles.highlightLineVertical
+
+        scaffold.push(
+          <div
+            className={`${styles.absoluteLineBlock} ${highlightLineClass}`}
+            key={`highlight_${1 + i}`}
+            style={{
+              left : scaffoldBlockPxWidth * i,
+              width: scaffoldBlockPxWidth
+            }} />
+        )
+      }
     }
-    // }
   })
 
   const nodeContent = (

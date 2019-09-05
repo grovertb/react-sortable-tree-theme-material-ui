@@ -14,9 +14,10 @@ import nodeContentRenderer from './node-content-renderer'
 import treeNodeRenderer from './tree-node-renderer'
 
 export default {
-  nodeContentRenderer,
+  isVirtualized       : false,
   // rowHeight           : 25,
-  scaffoldBlockPxWidth: 25,
+  nodeContentRenderer,
   // slideRegionSize     : 50,
+  scaffoldBlockPxWidth: 25,
   treeNodeRenderer
 }
