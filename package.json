@@ -17,6 +17,12 @@
   "files": [
     "dist"
   ],
+  "release": {
+    "branch": "next"
+  },
+  "publishConfig": {
+    "tag": "next"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/grovertb/react-sortable-tree-theme-material-ui"
