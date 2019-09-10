@@ -106,16 +106,16 @@ function FileThemeNodeContentRenderer(props) {
           <div
             className={
               styles.row +
-              node.active ? ` ${styles.activeRow}` : '' +
-              isLandingPadActive ? ` ${styles.rowLandingPad}` : '' +
-              isDragging ? ` ${styles.rowLandingPadDisable}` : '' +
+              (node.active ? ` ${styles.activeRow}` : '') +
+              (isLandingPadActive ? ` ${styles.rowLandingPad}` : '') +
+              (isDragging ? ` ${styles.rowLandingPadDisable}` : '') +
               (isLandingPadActive && !canDrop ? ` ${styles.rowCancelPad}` : '') +
               (isSearchMatch ? ` ${styles.rowSearchMatch}` : '') +
               (isSearchFocus ? ` ${styles.rowSearchFocus}` : '') +
               (!canDrag ? ` ${styles.rowWrapperDragDisabled}` : '') +
               (className ? ` ${className}` : '')
             }
-            onClick={() => onItemClick({ ...node, index: treeIndex })}
+            onClick={() => onItemClick ? onItemClick({ ...node, index: treeIndex }) : null}
             style={{
               opacity: isDraggedDescendant ? 0.5 : 1,
               ...style
