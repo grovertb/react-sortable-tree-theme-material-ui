@@ -31,7 +31,7 @@ function FileThemeTreeNodeRenderer(props) {
 
   const styles = useStyles()
 
-  // {...otherProps}
+  //  {...otherProps}
   return connectDropTarget(
     <div className={styles.node}>
       {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import makeStyles from '@material-ui/styles/makeStyles'
@@ -41,7 +41,8 @@ function FileThemeNodeContentRenderer(props) {
     listIndex,
     swapFrom,
     swapLength,
-    swapDepth
+    swapDepth,
+    onItemClick
     // treeId, // Not needed, but preserved for other renderers
     // isOver, // Not needed, but preserved for other renderers
     // parentNode, // Needed for dndManager
@@ -97,75 +98,51 @@ function FileThemeNodeContentRenderer(props) {
   })
 
   const nodeContent = (
-    <div className={styles.nodeContent}>
-      {/* {
-        toggleChildrenVisibility &&
-        node.children &&
-        node.children.length > 0 && (
-          <button
-            type="button"
-            aria-label={node.expanded ? 'Collapse' : 'Expand'}
+    <Fragment>
+      {scaffold}
+      {
+        // connectDragPreview
+        connectDragSource(
+          <div
             className={
-              node.expanded ? styles.collapseButton : styles.expandButton
+              styles.row +
+              node.active ? ` ${styles.activeRow}` : '' +
+              isLandingPadActive ? ` ${styles.rowLandingPad}` : '' +
+              isDragging ? ` ${styles.rowLandingPadDisable}` : '' +
+              (isLandingPadActive && !canDrop ? ` ${styles.rowCancelPad}` : '') +
+              (isSearchMatch ? ` ${styles.rowSearchMatch}` : '') +
+              (isSearchFocus ? ` ${styles.rowSearchFocus}` : '') +
+              (!canDrag ? ` ${styles.rowWrapperDragDisabled}` : '') +
+              (className ? ` ${className}` : '')
             }
+            onClick={() => onItemClick({ ...node, index: treeIndex })}
             style={{
-              left: (lowerSiblingCounts.length - 0.7) * scaffoldBlockPxWidth,
-            }}
-            onClick={() =>
-              toggleChildrenVisibility({
-                node,
-                path,
-                treeIndex,
-              })
-            }
-          />
-        )
-      } */}
-
-      <div className={styles.rowWrapper + (!canDrag ? ` ${styles.rowWrapperDragDisabled}` : '')}>
-        {scaffold}
-        {
-          // connectDragPreview
-          connectDragSource(
-            <div
-              className={
-                styles.row +
-                (isLandingPadActive ? ` ${styles.rowLandingPad}` : '') +
-                (isLandingPadActive && !canDrop ? ` ${styles.rowCancelPad}` : '') +
-                (isSearchMatch ? ` ${styles.rowSearchMatch}` : '') +
-                (isSearchFocus ? ` ${styles.rowSearchFocus}` : '') +
-                (className ? ` ${className}` : '')
-              }
-              style={{
-                opacity: isDraggedDescendant ? 0.5 : 1,
-                ...style
-              }}>
-              <div className={styles.rowContents + (!canDrag ? ` ${styles.rowContentsDragDisabled}` : '')}>
-                <div className={styles.rowIcon}>
-                  {icons}
-                </div>
-                <div className={styles.rowLabel}>
-                  {
-                    typeof nodeTitle === 'string' ?
-                      <span className={styles.rowTitle}>{nodeTitle}</span>  :
-                      typeof nodeTitle === 'function' ?
-                        nodeTitle({
-                          node,
-                          path,
-                          treeIndex
-                        }) :
-                        nodeTitle
-                  }
-                </div>
-                <div className={styles.rowToolbar}>
-                  {buttons}
-                </div>
-              </div>
+              opacity: isDraggedDescendant ? 0.5 : 1,
+              ...style
+            }}>
+            <div className={styles.rowIcon}>
+              {icons}
             </div>
-          )
-        }
-      </div>
-    </div>
+            <div className={styles.rowLabel}>
+              {
+                typeof nodeTitle === 'string' ?
+                  <span className={styles.rowTitle}>{nodeTitle}</span>  :
+                  typeof nodeTitle === 'function' ?
+                    nodeTitle({
+                      node,
+                      path,
+                      treeIndex
+                    }) :
+                    nodeTitle
+              }
+            </div>
+            <div className={styles.rowToolbar}>
+              {buttons}
+            </div>
+          </div>
+        )
+      }
+    </Fragment>
   )
 
   // return canDrag ?

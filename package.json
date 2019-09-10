@@ -1,6 +1,6 @@
 {
   "name": "react-sortable-tree-theme-material-ui",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Material UI theme for react-sortable-tree",
   "scripts": {
     "build": "npm run clean && cross-env NODE_ENV=production TARGET=umd webpack --bail",

@@ -21,6 +21,7 @@ export default () => ({
     position: 'absolute',
     top     : 0
   },
+  activeRow     : {},
   collapseButton: {},
   expandButton  : {
     // '&::after': {
@@ -142,32 +143,34 @@ export default () => ({
       position: 'relative'
     },
     '& $rowContents': {
-      alignItems     : 'center',
-      backgroundColor: 'white',
-      border         : '1px solid #D9D9D9',
-      borderRadius   : '3px',
-      color          : '#595959',
-      display        : 'flex',
+      alignItems    : 'center',
+      // backgroundColor: 'white',
+      // border        : '1px solid #D9D9D9',
+      borderRadius  : '3px',
+      color         : '#595959',
+      display       : 'flex',
       // flex           : '1 0 auto',
-      height         : '100%',
-      justifyContent : 'space-between',
-      padding        : 10,
-      position       : 'relative'
+      height        : '100%',
+      justifyContent: 'space-between',
+      padding       : 10,
+      position      : 'relative'
+    }
+  },
+  row: {
+    '& $rowIcon, & $rowLabel,& $rowToolbar': {
+      alignItems: 'center',
+      display   : 'flex'
     },
     '& $rowLabel': {
       flex   : 1,
       padding: '0px 6px'
-      // flex        : '0 1 auto',
-      // paddingRight: 20
-    }
-  },
-  row: {
-    // '& > *': {
-    //   boxSizing: 'border-box'
-    // },
-    '& $rowIcon, & $rowLabel,& $rowToolbar': {
-      alignItems: 'center',
-      display   : 'flex'
+    },
+    '& $rowToolbar': {
+      cursor: 'pointer'
+    },
+    '&$activeRow': {
+      backgroundColor: '#F3FBFF',
+      color          : '#1890FF'
     },
     '&$rowCancelPad': {
       '&::before': {
@@ -199,22 +202,35 @@ export default () => ({
       boxShadow      : 'none',
       outline        : 'none'
     },
-    // alignItems: 'center',
-    // display   : 'flex',
-    flex    : 1,
-    height  : '100%',
-    // transition  : 'all 1s ease-in-out',
-    position: 'relative'
-    // whiteSpace: 'nowrap'
+    '&$rowLandingPadDisable': {
+      '&:hover': {
+        backgroundColor: 'white'
+      }
+    },
+    // '&:hover': {
+    // '&:active': {
+    //   backgroundColor: 'transparent'
+    //   // color          : 'white'
+    // },
+    // backgroundColor: 'red'
+    // color          : 'white'
+    // },
+    backgroundColor: 'white',
+    cursor         : 'grab',
+    display        : 'flex',
+    flex           : 1,
+    padding        : 6,
+    position       : 'relative'
   },
   rowCancelPad: {},
   rowContents : {},
   rowIcon     : {
     color: '#D9D9D9'
   },
-  rowLabel      : {},
-  rowLandingPad : {},
-  rowSearchFocus: {
+  rowLabel            : {},
+  rowLandingPad       : {},
+  rowLandingPadDisable: {},
+  rowSearchFocus      : {
     boxShadow: 'inset 0 -7px 7px -3px #fc6421'
   },
   rowSearchMatch: {
@@ -226,16 +242,18 @@ export default () => ({
   },
   rowWrapper: {
     '&:active': {
-      opacity: 1
+      backgroundColor: 'transparent'
+      // opacity: 1
     },
     '&:hover': {
-      opacity: 0.7
+      // opacity: 0.7
+      backgroundColor: '#F3FBFF'
     },
     boxSizing: 'border-box',
     cursor   : 'grab',
     display  : 'flex',
-    height   : '100%',
-    margin   : '2px 2px 2px 0'
+    height   : '100%'
+    // margin   : '2px 2px 2px 0'
   },
   rowWrapperDragDisabled: {
     cursor: 'default'
