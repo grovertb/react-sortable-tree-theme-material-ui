@@ -20,7 +20,7 @@ function FileThemeNodeContentRenderer(props) {
   const {
     scaffoldBlockPxWidth,
     // toggleChildrenVisibility,
-    // connectDragPreview,
+    connectDragPreview,
     connectDragSource,
     isDragging,
     canDrop,
