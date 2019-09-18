@@ -14,6 +14,7 @@ class App extends Component {
       treeData        : [
         { title: '.gitignore' },
         { title: 'package.json' },
+        { type: 'divider' },
         {
           children: [
             { title: 'styles.css' },

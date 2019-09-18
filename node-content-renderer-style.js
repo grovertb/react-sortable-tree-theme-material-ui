@@ -23,7 +23,12 @@ export default () => ({
   },
   activeRow     : {},
   collapseButton: {},
-  expandButton  : {
+  divider       : {
+    backgroundColor: '#D8D8D8',
+    height         : 1,
+    width          : '100%'
+  },
+  expandButton: {
     // '&::after': {
     //   transform: 'translate3d(-50%, -20%, 0) rotateZ(-90deg)'
     // }

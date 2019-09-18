@@ -120,25 +120,33 @@ function FileThemeNodeContentRenderer(props) {
               opacity: isDraggedDescendant ? 0.5 : 1,
               ...style
             }}>
-            <div className={styles.rowIcon}>
-              {icons}
-            </div>
-            <div className={styles.rowLabel}>
-              {
-                typeof nodeTitle === 'string' ?
-                  <span className={styles.rowTitle}>{nodeTitle}</span>  :
-                  typeof nodeTitle === 'function' ?
-                    nodeTitle({
-                      node,
-                      path,
-                      treeIndex
-                    }) :
-                    nodeTitle
-              }
-            </div>
-            <div className={styles.rowToolbar}>
-              {buttons}
-            </div>
+            {
+              node.type === 'divider' ? (
+                <div className={styles.divider} />
+              ) : (
+                <Fragment>
+                  <div className={styles.rowIcon}>
+                    {icons}
+                  </div>
+                  <div className={styles.rowLabel}>
+                    {
+                      typeof nodeTitle === 'string' ?
+                        <span className={styles.rowTitle}>{nodeTitle}</span>  :
+                        typeof nodeTitle === 'function' ?
+                          nodeTitle({
+                            node,
+                            path,
+                            treeIndex
+                          }) :
+                          nodeTitle
+                    }
+                  </div>
+                  <div className={styles.rowToolbar}>
+                    {buttons}
+                  </div>
+                </Fragment>
+              )
+            }
           </div>
         )
       }

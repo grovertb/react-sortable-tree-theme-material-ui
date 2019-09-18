@@ -65,20 +65,23 @@ const config = {
   },
   plugins: [
     new webpack.EnvironmentPlugin({ NODE_ENV: 'development' }),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      beautify: true,
-      comments: true,
-      compress: {
-        warnings: false
-      },
-      mangle: false
-    })
+    new webpack.optimize.OccurrenceOrderPlugin()
+    // new webpack.optimize.UglifyJsPlugin({
+    //   beautify: true,
+    //   comments: true,
+    //   compress: {
+    //     warnings: false
+    //   },
+    //   mangle: false
+    // })
   ]
 }
 
 switch (target) {
   case 'umd':
+    config.optimization = {
+      minimize: true
+    }
     // Exclude library dependencies from the bundle
     config.externals = [
       nodeExternals({
@@ -88,6 +91,9 @@ switch (target) {
     ]
     break
   case 'development':
+    config.optimization = {
+      minimize: false
+    }
     config.devtool = 'eval'
     config.module.rules.push({
       exclude: path.join(__dirname, 'node_modules'),
@@ -115,6 +121,9 @@ switch (target) {
 
     break
   case 'demo':
+    config.optimization = {
+      minimize: true
+    }
     config.module.rules.push({
       exclude: path.join(__dirname, 'node_modules'),
       test   : /\.(jpe?g|png|gif|ico|svg)$/,
