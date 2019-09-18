@@ -23,7 +23,10 @@ export default () => ({
   },
   activeRow     : {},
   collapseButton: {},
-  divider       : {
+  contentNode   : {
+    flex: 1
+  },
+  divider: {
     backgroundColor: '#D8D8D8',
     height         : 1,
     width          : '100%'

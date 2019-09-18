@@ -98,8 +98,7 @@ function FileThemeNodeContentRenderer(props) {
   })
 
   const nodeContent = (
-    <Fragment>
-      {scaffold}
+    <div className={styles.contentNode}>
       {
         connectDragPreview(
           <div
@@ -124,6 +123,7 @@ function FileThemeNodeContentRenderer(props) {
                 <div className={styles.divider} />
               ) : (
                 <Fragment>
+                  {scaffold}
                   <div className={styles.rowIcon}>
                     {icons}
                   </div>
@@ -149,7 +149,7 @@ function FileThemeNodeContentRenderer(props) {
           </div>
         )
       }
-    </Fragment>
+    </div>
   )
 
   return canDrag ?
