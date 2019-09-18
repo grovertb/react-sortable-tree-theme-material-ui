@@ -101,8 +101,7 @@ function FileThemeNodeContentRenderer(props) {
     <Fragment>
       {scaffold}
       {
-        // connectDragPreview
-        connectDragSource(
+        connectDragPreview(
           <div
             className={
               styles.row +
@@ -153,11 +152,9 @@ function FileThemeNodeContentRenderer(props) {
     </Fragment>
   )
 
-  // return canDrag ?
-  //   connectDragSource(nodeContent, { dropEffect: 'copy' }) :
-  //   nodeContent
-
-  return nodeContent
+  return canDrag ?
+    connectDragSource(nodeContent, { dropEffect: 'copy' }) :
+    nodeContent
 }
 
 FileThemeNodeContentRenderer.defaultProps = {
