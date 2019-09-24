@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import makeStyles from '@material-ui/styles/makeStyles'
 import stylesNode from './node-content-renderer-style.js'
 
-const useStyles = makeStyles(stylesNode)
+const useStyles = makeStyles(stylesNode, { name: 'MuiNodeContent' })
 
 function isDescendant(older, younger) {
   return (

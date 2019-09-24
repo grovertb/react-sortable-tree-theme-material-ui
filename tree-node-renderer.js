@@ -5,7 +5,7 @@ import makeStyles from '@material-ui/styles/makeStyles'
 
 import stylesNode from './tree-node-renderer-style'
 
-const useStyles = makeStyles(stylesNode)
+const useStyles = makeStyles(stylesNode, { name: 'MuiTreeNode' })
 
 function FileThemeTreeNodeRenderer(props) {
   const {
