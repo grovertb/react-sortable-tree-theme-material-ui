@@ -24,7 +24,8 @@ export default () => ({
   activeRow     : {},
   collapseButton: {},
   contentNode   : {
-    flex: 1
+    // flex: 1
+    width: '100%'
   },
   divider: {
     backgroundColor: '#D8D8D8',
@@ -170,8 +171,9 @@ export default () => ({
       display   : 'flex'
     },
     '& $rowLabel': {
-      flex   : 1,
-      padding: '0px 6px'
+      flex    : 1,
+      overflow: 'hidden',
+      padding : '0px 6px'
     },
     '& $rowToolbar': {
       cursor: 'pointer'
