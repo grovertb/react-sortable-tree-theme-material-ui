@@ -1,4 +1,6 @@
-export default () => ({
+import { makeStyles } from '@material-ui/styles'
+
+export default makeStyles({
   '@keyframes arrow-pulse': {
     '0%': {
       opacity  : 0,
@@ -144,14 +146,14 @@ export default () => ({
     '& $rowContents': {
       alignItems     : 'center',
       backgroundColor: 'white',
-      border         : '1px solid #D9D9D9',
+      // border         : '1px solid #D9D9D9',
       borderRadius   : '3px',
       color          : '#595959',
       display        : 'flex',
       // flex           : '1 0 auto',
       height         : '100%',
       justifyContent : 'space-between',
-      padding        : 10,
+      // padding        : 10,
       position       : 'relative'
     },
     '& $rowLabel': {
@@ -215,10 +217,12 @@ export default () => ({
   rowLabel      : {},
   rowLandingPad : {},
   rowSearchFocus: {
-    boxShadow: 'inset 0 -7px 7px -3px #fc6421'
+    // boxShadow: 'inset 0 -7px 7px -3px #fc6421',
+    outline: 'solid 1px #fc6421'
   },
   rowSearchMatch: {
-    boxShadow: 'inset 0 -7px 7px -3px #0080ff'
+    outline: 'solid 1px #0080ff'
+    // boxShadow: 'inset 0 -7px 7px -3px #0080ff'
   },
   rowToolbar: {
     // display: 'flex',
@@ -234,8 +238,8 @@ export default () => ({
     boxSizing: 'border-box',
     cursor   : 'grab',
     display  : 'flex',
-    height   : '100%',
-    margin   : '2px 2px 2px 0'
+    height   : '100%'
+    // margin   : '2px 2px 2px 0'
   },
   rowWrapperDragDisabled: {
     cursor: 'default'

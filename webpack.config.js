@@ -1,14 +1,16 @@
 const path = require('path')
-// const webpack = require('webpack')
+const webpack = require('webpack')
 // const autoprefixer = require('autoprefixer')
 // const nodeExternals = require('webpack-node-externals')
-// const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 // const target = process.env.TARGET || 'umd'
 
 // const styleLoader = {
-//   loader : 'style-loader',
-//   options: { insertAt: 'top' }
+//   loader: 'style-loader'
+//   // options: {
+//   //   insert: 'top'
+//   // }
 // }
 
 // const fileLoader = {
@@ -19,20 +21,18 @@ const path = require('path')
 // const postcssLoader = {
 //   loader : 'postcss-loader',
 //   options: {
-//     plugins: () => [
-//       autoprefixer({ browsers: [ 'IE >= 9', 'last 2 versions', '> 1%' ] })
-//     ]
+//     plugins: () => [ require('autoprefixer') ]
 //   }
 // }
 
 // const cssLoader = isLocal => ({
-//   loader : 'css-loader',
-//   options: {
-//     '-autoprefixer': true,
-//     importLoaders  : true,
-//     localIdentName : isLocal ? 'rstcustom__[local]' : null,
-//     modules        : true
-//   }
+//   loader: 'css-loader'
+//   // options: {
+//   //   '-autoprefixer': true,
+//   //   importLoaders  : true,
+//   //   localIdentName : isLocal ? 'rstcustom__[local]' : null,
+//   //   modules        : true
+//   // }
 // })
 
 // const config = {
@@ -76,6 +76,57 @@ const path = require('path')
 //     })
 //   ]
 // }
+
+const config = {
+  devtool: 'source-map',
+  // Path to your entry point. From this file Webpack will begin his work
+  // entry  : './demo/index.js',
+  entry  : [ 'react-hot-loader/patch', './demo/index' ],
+  // Path and filename of your result bundle.
+  // Webpack will bundle all JavaScript into this file
+  mode   : 'development',
+  // Default mode for Webpack is production.
+  // Depending on mode Webpack will apply different things
+  // on final bundle. For now we don't need production's JavaScript
+  // minifying and other thing so let's set mode to development
+  module : {
+    rules: [
+      {
+        exclude: path.join(__dirname, 'node_modules'),
+        test   : /\.js$/,
+        use    : {
+          loader: 'babel-loader'
+        }
+      }
+      // {
+      //   exclude: path.join(__dirname, 'node_modules'),
+      //   test   : /\.scss$/,
+      //   use    : [ styleLoader, cssLoader(true), postcssLoader, 'sass-loader' ]
+      // },
+      // {
+      //   // Used for importing css from external modules (react-virtualized, etc.)
+      //   test: /\.css$/,
+      //   use : [ styleLoader, cssLoader(false), postcssLoader ]
+      // }
+    ]
+  },
+  output: {
+    filename: 'static/[name].js',
+    path    : path.join(__dirname, 'build')
+  },
+  plugins: [
+    // new webpack.optimize.OccurrenceOrderPlugin(),
+    new HtmlWebpackPlugin({
+      inject  : true,
+      template: './demo/index.html'
+    })
+  ],
+  resolve: {
+    alias: {
+      'react-dom': '@hot-loader/react-dom'
+    }
+  }
+}
 
 // switch (target) {
 //   case 'umd':
@@ -142,35 +193,5 @@ const path = require('path')
 //   default:
 // }
 
-// module.exports = config
-
-module.exports = {
-  // Path to your entry point. From this file Webpack will begin his work
-  entry: './demo/index.js',
-
-  // Path and filename of your result bundle.
-  // Webpack will bundle all JavaScript into this file
-  mode: 'development',
-
-  // Default mode for Webpack is production.
-  // Depending on mode Webpack will apply different things
-  // on final bundle. For now we don't need production's JavaScript
-  // minifying and other thing so let's set mode to development
-  module: {
-    rules: [
-      {
-        exclude: path.join(__dirname, 'node_modules'),
-        test   : /\.js$/,
-        use    : {
-          loader: 'babel-loader'
-        }
-      }
-    ]
-  },
-  output: {
-    filename: 'static/[name].js',
-    path    : path.join(__dirname, 'build')
-  }
-
-}
+module.exports = config
 

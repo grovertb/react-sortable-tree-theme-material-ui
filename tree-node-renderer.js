@@ -1,11 +1,7 @@
 import React, { Children, cloneElement } from 'react'
 import PropTypes from 'prop-types'
 
-import makeStyles from '@material-ui/styles/makeStyles'
-
-import stylesNode from './tree-node-renderer-style'
-
-const useStyles = makeStyles(stylesNode)
+import useStyles from './tree-node-renderer-style'
 
 function FileThemeTreeNodeRenderer(props) {
   const {
@@ -14,26 +10,110 @@ function FileThemeTreeNodeRenderer(props) {
     swapFrom,
     swapLength,
     swapDepth,
-    // scaffoldBlockPxWidth,
+    scaffoldBlockPxWidth,
     lowerSiblingCounts,
     connectDropTarget,
     isOver,
     draggedNode,
-    canDrop
-    // treeIndex,
+    canDrop,
+    treeIndex
     // treeId, // Delete from otherProps
     // getPrevRow, // Delete from otherProps
     // node, // Delete from otherProps
     // path, // Delete from otherProps
-    // rowDirection,
+    // rowDirection
     // ...otherProps
   } = props
 
-  const styles = useStyles()
+  const classes = useStyles()
+  const scaffold = []
+  const scaffoldBlockCount = lowerSiblingCounts.length
 
-  // {...otherProps}
+  lowerSiblingCounts.forEach((lowerSiblingCount, i) => {
+    let lineClass = ''
+    if(lowerSiblingCount > 0)
+      if(listIndex === 0) {
+        // Top-left corner of the tree
+        // +-----+
+        // |     |
+        // |  +--+
+        // |  |  |
+        // +--+--+
+        lineClass = `${classes.lineHalfHorizontalRight} ${classes.lineHalfVerticalBottom}`
+      } else if(i === scaffoldBlockCount - 1) {
+        // Last scaffold block in the row, right before the row content
+        // +--+--+
+        // |  |  |
+        // |  +--+
+        // |  |  |
+        // +--+--+
+        lineClass = `${classes.lineHalfHorizontalRight} ${classes.lineFullVertical}`
+      } else {
+        // Simply connecting the line extending down to the next sibling on this level
+        // +--+--+
+        // |  |  |
+        // |  |  |
+        // |  |  |
+        // +--+--+
+        lineClass = classes.lineFullVertical
+      }
+    else if(listIndex === 0)
+      // Top-left corner of the tree, but has no siblings
+      // +-----+
+      // |     |
+      // |  +--+
+      // |     |
+      // +-----+
+      lineClass = classes.lineHalfHorizontalRight
+    else if(i === scaffoldBlockCount - 1)
+      // The last or only node in this level of the tree
+      // +--+--+
+      // |  |  |
+      // |  +--+
+      // |     |
+      // +-----+
+      lineClass = `${classes.lineHalfVerticalTop} ${classes.lineHalfHorizontalRight}`
+
+    scaffold.push(
+      <div
+        className={`${classes.lineBlock} ${lineClass}`}
+        // className={('lineBlock', lineClass, rowDirectionClass)}
+        key={`pre_${1 + i}`}
+        style={{ width: scaffoldBlockPxWidth }} />
+    )
+
+    // if(treeIndex !== listIndex && i === swapDepth) {
+    // let highlightLineClass = ''
+
+    // if(listIndex === swapFrom + swapLength - 1)
+    //   // This block is on the bottom (target) line
+    //   // This block points at the target block (where the row will go when released)
+    //   highlightLineClass = 'rst__highlightBottomLeftCorner'
+    // else if(treeIndex === swapFrom)
+    //   // This block is on the top (source) line
+    //   highlightLineClass = 'rst__highlightTopLeftCorner'
+    // else
+    //   // This block is between the bottom and top
+    //   highlightLineClass = 'rst__highlightLineVertical'
+
+    // scaffold.push(
+    //   <div
+    //     className={classnames(
+    //       'rst__absoluteLineBlock',
+    //       highlightLineClass,
+    //       rowDirectionClass
+    //     )}
+    //     key={i}
+    //     style={style} />
+    // )
+    // }
+  })
+
   return connectDropTarget(
-    <div className={styles.node}>
+    <div className={classes.root}>
+      <div>
+        {scaffold}
+      </div>
       {
         Children.map(children, child =>
           cloneElement(child, {

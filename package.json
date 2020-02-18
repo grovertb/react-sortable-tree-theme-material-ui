@@ -48,6 +48,7 @@
     }
   },
   "dependencies": {
+    "@hot-loader/react-dom": "^16.11.0",
     "@material-ui/styles": "^4.9.0",
     "lodash.isequal": "^4.5.0",
     "prop-types": "^15.7.2",
@@ -62,6 +63,9 @@
     "react-sortable-tree": "^2.7.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
     "autoprefixer": "^9.7.4",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.3",
@@ -111,5 +115,17 @@
   "keywords": [
     "react",
     "react-component"
-  ]
+  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

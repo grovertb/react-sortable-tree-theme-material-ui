@@ -1,10 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import makeStyles from '@material-ui/styles/makeStyles'
-import stylesNode from './node-content-renderer-style.js'
+import DragIcon from './DragIcon'
 
-const useStyles = makeStyles(stylesNode)
+import useStyles from './node-content-renderer-style'
 
 function isDescendant(older, younger) {
   return (
@@ -19,8 +18,8 @@ function isDescendant(older, younger) {
 function FileThemeNodeContentRenderer(props) {
   const {
     scaffoldBlockPxWidth,
-    // toggleChildrenVisibility,
-    // connectDragPreview,
+    toggleChildrenVisibility,
+    connectDragPreview,
     connectDragSource,
     isDragging,
     canDrop,
@@ -42,13 +41,13 @@ function FileThemeNodeContentRenderer(props) {
     swapFrom,
     swapLength,
     swapDepth
-    // treeId, // Not needed, but preserved for other renderers
+    // treeId // Not needed, but preserved for other renderers
     // isOver, // Not needed, but preserved for other renderers
     // parentNode, // Needed for dndManager
     // rowDirection
   } = props
 
-  const styles = useStyles()
+  const classes = useStyles()
 
   const nodeTitle = title || node.title
 
@@ -62,7 +61,7 @@ function FileThemeNodeContentRenderer(props) {
     if(i > 0) {
       scaffold.push(
         <div
-          className={styles.lineBlock}
+          className={classes.lineBlock}
           key={`pre_${1 + i}`}
           style={{ width: scaffoldBlockPxWidth }} />
       )
@@ -75,17 +74,17 @@ function FileThemeNodeContentRenderer(props) {
         if(listIndex === swapFrom + swapLength - 1)
         // This block is on the bottom (target) line
         // This block points at the target block (where the row will go when released)
-          highlightLineClass = styles.highlightBottomLeftCorner
+          highlightLineClass = classes.highlightBottomLeftCorner
         else if(treeIndex === swapFrom)
         // This block is on the top (source) line
-          highlightLineClass = styles.highlightTopLeftCorner
+          highlightLineClass = classes.highlightTopLeftCorner
         else
         // This block is between the bottom and top
-          highlightLineClass = styles.highlightLineVertical
+          highlightLineClass = classes.highlightLineVertical
 
         scaffold.push(
           <div
-            className={`${styles.absoluteLineBlock} ${highlightLineClass}`}
+            className={`${classes.absoluteLineBlock} ${highlightLineClass}`}
             key={`highlight_${1 + i}`}
             style={{
               left : scaffoldBlockPxWidth * i,
@@ -97,57 +96,65 @@ function FileThemeNodeContentRenderer(props) {
   })
 
   const nodeContent = (
-    <div className={styles.nodeContent}>
+    <div className={classes.nodeContent}>
       {/* {
         toggleChildrenVisibility &&
         node.children &&
         node.children.length > 0 && (
           <button
-            type="button"
             aria-label={node.expanded ? 'Collapse' : 'Expand'}
             className={
-              node.expanded ? styles.collapseButton : styles.expandButton
+              node.expanded ? classes.collapseButton : classes.expandButton
             }
-            style={{
-              left: (lowerSiblingCounts.length - 0.7) * scaffoldBlockPxWidth,
-            }}
             onClick={() =>
               toggleChildrenVisibility({
                 node,
                 path,
-                treeIndex,
+                treeIndex
               })
             }
-          />
+            style={{
+              left: (lowerSiblingCounts.length - 0.7) * scaffoldBlockPxWidth
+            }}
+            type='button' />
         )
       } */}
 
-      <div className={styles.rowWrapper + (!canDrag ? ` ${styles.rowWrapperDragDisabled}` : '')}>
+      <div className={classes.rowWrapper + (!canDrag ? ` ${classes.rowWrapperDragDisabled}` : '')}>
         {scaffold}
-        {
-          // connectDragPreview
+        {/* {
           connectDragSource(
+            <div>
+              <DragIcon />
+            </div>
+          )
+        } */}
+        {
+          connectDragPreview(
             <div
               className={
-                styles.row +
-                (isLandingPadActive ? ` ${styles.rowLandingPad}` : '') +
-                (isLandingPadActive && !canDrop ? ` ${styles.rowCancelPad}` : '') +
-                (isSearchMatch ? ` ${styles.rowSearchMatch}` : '') +
-                (isSearchFocus ? ` ${styles.rowSearchFocus}` : '') +
+                classes.row +
+                (isLandingPadActive ? ` ${classes.rowLandingPad}` : '') +
+                (isLandingPadActive && !canDrop ? ` ${classes.rowCancelPad}` : '') +
+                (isSearchMatch && !isSearchFocus ? ` ${classes.rowSearchMatch}` : '') +
+                (isSearchFocus ? ` ${classes.rowSearchFocus}` : '') +
                 (className ? ` ${className}` : '')
               }
               style={{
                 opacity: isDraggedDescendant ? 0.5 : 1,
                 ...style
               }}>
-              <div className={styles.rowContents + (!canDrag ? ` ${styles.rowContentsDragDisabled}` : '')}>
-                <div className={styles.rowIcon}>
+              <div className={classes.rowContents + (!canDrag ? ` ${classes.rowContentsDragDisabled}` : '')}>
+                {
+                  connectDragSource(<div><DragIcon /></div>)
+                }
+                <div className={classes.rowIcon}>
                   {icons}
                 </div>
-                <div className={styles.rowLabel}>
+                <div className={classes.rowLabel}>
                   {
                     typeof nodeTitle === 'string' ?
-                      <span className={styles.rowTitle}>{nodeTitle}</span>  :
+                      <span className={classes.rowTitle}>{nodeTitle}</span>  :
                       typeof nodeTitle === 'function' ?
                         nodeTitle({
                           node,
@@ -157,13 +164,14 @@ function FileThemeNodeContentRenderer(props) {
                         nodeTitle
                   }
                 </div>
-                <div className={styles.rowToolbar}>
+                <div className={classes.rowToolbar}>
                   {buttons}
                 </div>
               </div>
             </div>
           )
         }
+
       </div>
     </div>
   )

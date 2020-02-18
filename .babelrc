@@ -1,14 +1,15 @@
 {
   "presets": [
-    ["env", {
-      "targets": {
-        "browsers": ["last 2 versions", "ie >= 9"]
+    [
+      "@babel/preset-env", {
+        "targets": {
+          "browsers": ["last 2 versions", "ie >= 9"]
+        }
       }
-    }],
-    "react"
+    ],
+    "@babel/preset-react"
   ],
   "plugins": [
-    "transform-object-rest-spread",
     "react-hot-loader/babel"
   ]
 }
